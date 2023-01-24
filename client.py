@@ -103,7 +103,10 @@ async def setup_button():
     file_select_proxy = create_proxy(file_select)
 
     '''Setting the listener to the callback'''
-    document.getElementById("file_select").addEventListener(
+    document.getElementById("psu_file_select").addEventListener(
+        "click", file_select_proxy, False)
+    
+    document.getElementById("ex_file_select").addEventListener(
         "click", file_select_proxy, False)
 
 

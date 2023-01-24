@@ -2,7 +2,7 @@
 
 import asyncio
 import json
-import js
+#import js
 from js import query
 from pyodide.http import pyfetch, FetchResponse
 from pyodide import to_js
