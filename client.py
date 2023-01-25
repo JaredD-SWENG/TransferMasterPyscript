@@ -1,6 +1,6 @@
 # Client.py is the run the client-facing logic of TransferMaster (Pyscript)
 
-"""Necessary imports including custom module from backend.py, 
+"""Necessary imports including custom module from backend.py,
 and custom functions from api.js (via import js)"""
 import asyncio
 from backend import get_comparer, get_syllabus
@@ -14,7 +14,11 @@ from pyodide import create_proxy, to_js
 def clear_data():
     document.getElementById("filename").innerHTML = ''
     document.getElementById("filesize").innerHTML = ''
-    document.getElementById('content').contentDocument.body.innerText = ''
+    document.getElementById('institutionframe').contentDocument.body.innerText = ''
+    document.getElementById('coursename').contentDocument.body.innerText = ''
+    document.getElementById('finalscore').contentDocument.body.innerText = ''
+    document.getElementById('credits').contentDocument.body.innerText = ''
+    document.getElementById('textbook').contentDocument.body.innerText = ''
 
 
 """Asynchronous Python function for file selection"""
@@ -31,7 +35,7 @@ async def file_select(event):
             "startIn": "documents"
         }
 
-        '''fileHandle needs to wait for this File System Access API call 
+        '''fileHandle needs to wait for this File System Access API call
         (it needs "options", which is first converted to js)'''
         fileHandles = await window.showOpenFilePicker(Object.fromEntries(to_js(options)))
 
@@ -54,8 +58,8 @@ async def file_select(event):
         '''File's bytes to send for parsing'''
         content = await file.arrayBuffer()
 
-        document.getElementById(
-            'content').contentDocument.body.innerText = content
+        '''document.getElementById(
+            'content').contentDocument.body.innerText = content'''
 
         '''Parsed document from file's bytes, needs to be converted to py
         because parse_doc is a js function'''
@@ -68,12 +72,28 @@ async def file_select(event):
         external = await get_syllabus(parsed_doc)
 
         '''Any attribute of a syllabus can be easily accessed due to the
-        Syllabus class. For usage examples, see: 
+        Syllabus class. For usage examples, see:
         https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
         As of now, you need to Inspect->Console to see output.
         Note: there are slight differences between the class definition in the
         link above, but usage is not effected.'''
         print(psu.institution)
+        print(psu.course)
+        print(psu.credits)
+        print(psu.textbook)
+        document.getElementById('institutionframe').contentDocument.body.innerText = psu.institution
+        document.getElementById('coursename').contentDocument.body.innerText = psu.course
+        document.getElementById('credits').contentDocument.body.innerText = psu.credits
+        if(psu.textbook == ''):
+            text = 'Not specified'
+            document.getElementById('textbook').contentDocument.body.innerText = text
+        else:
+            document.getElementById('textbook').contentDocument.body.innerText = psu.textbook
+        document.getElementById('objectives').contentDocument.body.innerText = psu.learning_outcomes
+
+
+
+
 
         '''Weights are being preset'''
         learning_outcomes_weight = 0.6
@@ -86,15 +106,16 @@ async def file_select(event):
         Only one instance of the Comparer class needs to be used.'''
         comparer = await get_comparer(psu, external, weights)
 
-        '''Attributes of the comparer can also be easily accessed due to the 
-        Comparer class. For usage examples, see: 
+        '''Attributes of the comparer can also be easily accessed due to the
+        Comparer class. For usage examples, see:
         https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
         Note: there are slight differences between the class definition in the
         link above, but usage is not effected.'''
         print(comparer.final_score)
+        document.getElementById('finalscore').contentDocument.body.innerText = str(comparer.final_score)
 
-"""Async function that, as of now, runs the entire prototype; 
-from file selection, to extraction, to comparison. Will need to 
+"""Async function that, as of now, runs the entire prototype;
+from file selection, to extraction, to comparison. Will need to
 be broken down in the future."""
 
 

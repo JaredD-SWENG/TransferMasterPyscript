@@ -26,19 +26,29 @@
   </head>
   <body>
     <p>
-      This example shows how to call the File System Access APIs. These APIs permit local file system access.
+      TransferMaster Prototype
     </p>
     <div id="output"></div>
     <br />
-    <button class="button" type="button" id="file_select">Read Local File</button>
+    <button class="button" type="button" id="file_select">Upload PSU Syllabus</button>
     <br />
     <br />
     <div id="filename"></div>
     <div id="filesize"></div>
     <div id="filetype"></div>
     <div id="filedate"></div>
-    <h4>File Contents:</h4>
-    <iframe id="content" width="700" height="400"></iframe>
+    <h4>Institution Name:</h4>
+    <iframe id="institutionframe" width="700" height="50"></iframe>
+    <h4>Course Name:</h4>
+    <iframe id="coursename" width="700" height="50"></iframe>
+    <h4>Number of Credits:</h4>
+    <iframe id="credits" width="700" height="50"></iframe>
+    <h4>Course Objectives:</h4>
+    <iframe id="objectives" width="700" height="500"></iframe>
+    <h4>Textbook:</h4>
+    <iframe id="textbook" width="700" height="50"></iframe>
+    <h4>Final Score:</h4>
+    <iframe id="finalscore" width="700" height="50"></iframe>
     <!--using custom json to get other .py files-->
     <py-config type="json" src="./custom.json"></py-config>
     <!--Include any modules that need to be imported here, including any local files needed for operation-->
