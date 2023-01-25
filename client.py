@@ -89,7 +89,8 @@ async def file_select(event):
             document.getElementById('textbook').contentDocument.body.innerText = text
         else:
             document.getElementById('textbook').contentDocument.body.innerText = psu.textbook
-        document.getElementById('objectives').contentDocument.body.innerText = psu.learning_outcomes
+        for i in psu.learning_outcomes:
+            document.getElementById('objectives').contentDocument.body.innerText += "\n" + i
 
 
 

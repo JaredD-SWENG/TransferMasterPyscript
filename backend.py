@@ -10,7 +10,7 @@ from typing import Optional, Any
 import numpy as np
 from statistics import mean
 
-"""For usage examples on the Syllabus class, see: 
+"""For usage examples on the Syllabus class, see:
 https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
 Note: there are slight differences between the class definition in the
 link above, but usage is not effected."""
@@ -93,7 +93,7 @@ async def get_syllabus(parsed_doc) -> Syllabus:
     return Syllabus(parsed_doc)
 
 
-"""For usage examples on the Comparer class, see: 
+"""For usage examples on the Comparer class, see:
 https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
 Note: there are slight differences between the class definition in the
 link above, but usage is not effected."""
