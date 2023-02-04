@@ -2,12 +2,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="column_sheet" href="column_display.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>File System Access API Examples</title>
+    <title>TransferMaster Prototype</title>
     <!--Might be able to remove script tag below-->
-    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=ULVnp8GemZfoBuJamgq7VPZs76_M87cudc59SQhSK1oh-6XlirSgxxpMAL3XcUGFdE1xXr-ZGuhzxvPjlg8VPTp7IJvWZY1KD3NFC9zWH9Q" charset="UTF-8"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@holoviz/panel@0.14.1/dist/panel.min.js"></script>
     <!--Outdated CDN, new one is https://pyscript.net/latest/pyscript.js, but breaks with current implementation -->
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <script src="./api.js"></script>
@@ -22,6 +27,8 @@
         display: inline-block;
         font-size: 16px;
       }
+
+      div.col {display: block}
     </style>
   </head>
   <body>
@@ -30,13 +37,62 @@
     </p>
     <div id="output"></div>
     <br />
-    <button class="button" type="button" id="file_select">Upload PSU Syllabus</button>
+
     <br />
+
     <br />
     <div id="filename"></div>
     <div id="filesize"></div>
     <div id="filetype"></div>
     <div id="filedate"></div>
+
+
+    <div>
+      <div style="width: 800; float:left; margin:10px">
+        <button class="button" type="button" id="psu_file_select">Upload PSU Syllabus</button>
+        <h4>PSU Institution Name:</h4>
+        <iframe id="psu_institutionframe" width="700" height="50"></iframe>
+        <h4>Course Name:</h4>
+        <iframe id="psu_coursename" width="700" height="50"></iframe>
+        <h4>Number of Credits:</h4>
+        <iframe id="psu_credits" width="700" height="50"></iframe>
+        <h4>Textbook:</h4>
+        <iframe id="psu_textbook" width="700" height="50"></iframe>
+        <h4>Course Objectives:</h4>
+        <iframe id="psu_objectives" width="700" height="500"></iframe>
+        <!-- <h4>Final Score:</h4>
+        <iframe id="psu_finalscore" width="700" height="50"></iframe> -->
+      </div>
+
+      <!--External syllabus sections displayed-->
+      <div style="width: 800; float:left; margin:10px">
+        <button class="button" type="button" id="external_file_select">Upload External Syllabus</button>
+        <h4>External Institution Name:</h4>
+        <iframe id="ext_institutionframe" width="700" height="50"></iframe>
+        <h4>Course Name:</h4>
+        <iframe id="ext_coursename" width="700" height="50"></iframe>
+        <h4>Number of Credits:</h4>
+        <iframe id="ext_credits" width="700" height="50"></iframe>
+        <h4>Textbook:</h4>
+        <iframe id="ext_textbook" width="700" height="50"></iframe>
+        <h4>Course Objectives:</h4>
+        <iframe id="ext_objectives" width="700" height="500"></iframe>
+        <!-- <h4>Final Score:</h4>
+        <iframe id="ext_finalscore" width="700" height="50"></iframe> -->
+      </div>
+    </div>
+
+    <div style="margin-top:1600; width: auto;" id="another_div">
+      <p>This is the another_div</p>
+    </div>
+
+
+
+    <br>
+
+
+
+    <!--
     <h4>Institution Name:</h4>
     <iframe id="institutionframe" width="700" height="50"></iframe>
     <h4>Course Name:</h4>
@@ -48,12 +104,15 @@
     <h4>Course Objectives:</h4>
     <iframe id="objectives" width="700" height="500"></iframe>
     <h4>Final Score:</h4>
-    <iframe id="finalscore" width="700" height="50"></iframe>
+    <iframe id="finalscore" width="700" height="50"></iframe>-->
     <!--using custom json to get other .py files-->
     <py-config type="json" src="./custom.json"></py-config>
     <!--Include any modules that need to be imported here, including any local files needed for operation-->
     <py-env>
       - numpy
+      - matplotlib
+      - panel==0.13.1
+      - bokeh
       - asyncio
       - pyodide.http
       - typing
@@ -61,7 +120,23 @@
         - ./backend.py
         - ./custom.json
         - ./api.js
+        - ./style.css
+        - ./column_display.css
     </py-env>
+    <!--<py-script>
+      print("hiiiiiiiiiiiiiiiiiii")
+      import matplotlib.pyplot as plt
+      labels = ['Texbook', 'Learning Objectives', 'other', 'other2']
+      sizes = [15, 40, 25, 20]
+      fig, ax = plt.subplots()
+      ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+      plt.title("Weight Adjustments")
+      # Equal aspect ratio ensures that pie is drawn as a circle
+      ax.axis('equal')
+      plt.show()
+      #display("DIKSRHGLIJSDNFGILUHESRLIFJDBELHG", target="another_div")
+    </py-script>-->
     <py-script src="./client.py"></py-script>
+    <!-- <py-script></py-script> -->
   </body>
 </html>

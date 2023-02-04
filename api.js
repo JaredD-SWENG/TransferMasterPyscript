@@ -14,6 +14,7 @@ async function parse_doc(data)
     return await response.json();
 }
 
+
 //Sentence Similarity Inference Hugging Face API call
 async function query(source, other)
 {
@@ -27,14 +28,14 @@ async function query(source, other)
         body: JSON.stringify({inputs:{
             source_sentence: source,
             sentences: other
-        }}) //inputs from py need to be stringified 
+        }}) //inputs from py need to be stringified
     });
     const result = await response.json();
     return result;
 }
 
 
-//This function is not currently in use, but may be in 
+//This function is not currently in use, but may be in
 
 // function createObject(object, variableName){
 //     //Bind a variable whose name is the string variableName
