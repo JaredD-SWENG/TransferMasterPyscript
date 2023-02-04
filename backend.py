@@ -145,7 +145,7 @@ class Comparer:
     async def get_learning_outcomes_percentage(self) -> None:
         """Get the learning outcomes match percentage"""
 
-        await self.get_grouped_comparisons()
+        await self.get_grouped_comparisons()  # this?
 
         averages = []
 

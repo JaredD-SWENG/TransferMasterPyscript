@@ -10,8 +10,9 @@ from backend import get_comparer, get_syllabus, Syllabus
 from js import alert, document, Object, window, parse_doc
 from pyodide import create_proxy, to_js
 
-psu = Syllabus
-external = Syllabus
+# psu = Syllabus()
+# external = Syllabus()
+output2 = ''
 
 
 """Used to clear HTML elements"""
@@ -24,8 +25,6 @@ def clear_psu_data():
         'psu_institutionframe').contentDocument.body.innerText = ''
     document.getElementById(
         'psu_coursename').contentDocument.body.innerText = ''
-    # document.getElementById(
-    #     'psu_finalscore').contentDocument.body.innerText = ''
     document.getElementById(
         'psu_credits').contentDocument.body.innerText = ''
     document.getElementById(
@@ -41,8 +40,6 @@ def clear_ext_data():
         'ext_institutionframe').contentDocument.body.innerText = ''
     document.getElementById(
         'ext_coursename').contentDocument.body.innerText = ''
-    # document.getElementById(
-    #     'ext_finalscore').contentDocument.body.innerText = ''
     document.getElementById(
         'ext_credits').contentDocument.body.innerText = ''
     document.getElementById(
@@ -101,6 +98,7 @@ async def psu_file_select(event):
         There are retrieved through the get_syllabus accessor function
         (also defined backend.py)'''
 
+        global psu
         psu = await get_syllabus(parsed_doc)
         # external = await get_syllabus(parsed_doc)
 
@@ -197,6 +195,7 @@ async def external_file_select(event):
         There are retrieved through the get_syllabus accessor function
         (also defined backend.py)'''
 
+        global external
         external = await get_syllabus(parsed_doc)
         # external = await get_syllabus(parsed_doc)
 
@@ -274,6 +273,8 @@ async def compare_pipeline(_):
     '''comparer is of type Comparer defined in backend.py.
     Accessed through get_comparer (aslo defined in backend.py)
     Only one instance of the Comparer class needs to be used.'''
+
+    global comparer
     comparer = await get_comparer(psu, external, weights)
 
     '''Attributes of the comparer can also be easily accessed due to the
@@ -281,24 +282,23 @@ async def compare_pipeline(_):
     https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
     Note: there are slight differences between the class definition in the
     link above, but usage is not effected.'''
-    return pn.indicators.Number(
-        name="Final Score",
-        value=round(comparer.final_score * 100, 2),
-        format="{value}%",
-        colors=[(97.5, "red"), (99.0, "orange"), (100, "green")],
-        align='center'
-    )
+    print(comparer.final_score)
 
 
 async def setup():
     await setup_psu_button()
     await setup_external_button()
-    # pn.Row(
-    #     pn.Column(input_learning_outcomes_weight, input_textbook_weight,
-    #               compare).servable(target="another_div"),
-    #     pn.Column(pn.bind(compare_pipeline, compare.param.clicks)
-    #               ).servable(target="another_div"),
+
+    output = pn.Column(input_learning_outcomes_weight,
+                       input_textbook_weight, compare).servable()
+    compare.on_click(compare_pipeline)
+    pn.Row(output, output2)
+    # pn.Column(pn.bind(output, compare.param.clicks)
+    #           ).servable(),
+    # pn.Column(compare).servable()
     # )
+    print("compare_pipeline")
+    # print(comparer.get_final_score)
 
 
 # data visualizations
