@@ -15,7 +15,7 @@ from pyodide import create_proxy, to_js
 output2 = ''
 
 
-"""Used to clear HTML elements"""
+"""Used to clear HTML elements and initialize to empty strings"""
 
 
 def clear_psu_data():
@@ -256,11 +256,15 @@ async def setup_external_button():
         "click", file_select_proxy, False)
 
 
+#pn = panel
+# sliders
 compare = pn.widgets.Button(name="Compare Syllabi")
 input_learning_outcomes_weight = pn.widgets.FloatSlider(
     start=0.0, end=1.0, name="Weighting for Learning Objectives")
 input_textbook_weight = pn.widgets.FloatSlider(
     start=0.0, end=1.0, name="Weighting for Textbook")
+
+# pipeline function to send weightings and syllabi to comparer class and get final score back
 
 
 async def compare_pipeline(_):
@@ -282,7 +286,11 @@ async def compare_pipeline(_):
     https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
     Note: there are slight differences between the class definition in the
     link above, but usage is not effected.'''
-    print(comparer.final_score)
+    print(comparer.final_score)  # printed to the console
+    '''once upon a time we had this pn.indicators.Number thing that's supposed to return the final score
+    and apparently display it to the screen but oh well'''
+
+# function to set up the buttons and then call the pipeline to compare and display final score
 
 
 async def setup():
@@ -290,14 +298,19 @@ async def setup():
     await setup_external_button()
 
     output = pn.Column(input_learning_outcomes_weight,
-                       input_textbook_weight, compare).servable()
+                       input_textbook_weight, compare).servable()  # the sliders
+    # call function on click to print score on console
     compare.on_click(compare_pipeline)
+    # output2 was intended to have the pn.indicator.Number thing
     pn.Row(output, output2)
+    # and print it to the screen but rn it's empty
+    '''
     # pn.Column(pn.bind(output, compare.param.clicks)
     #           ).servable(),
     # pn.Column(compare).servable()
     # )
-    print("compare_pipeline")
+    '''
+    print("compare_pipeline")  # prints "compare_pipeline"
     # print(comparer.get_final_score)
 
 

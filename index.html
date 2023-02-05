@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css">
-    <link rel="column_sheet" href="column_display.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -48,6 +46,7 @@
 
 
     <div>
+      <!--PSU syllabus sections displayed on the left-hand side-->
       <div style="overflow:auto; width: 800; float:left; margin:10px">
         <button class="button" type="button" id="psu_file_select">Upload PSU Syllabus</button>
         <h4>PSU Institution Name:</h4>
@@ -60,11 +59,9 @@
         <iframe id="psu_textbook" width="700" height="50"></iframe>
         <h4>Course Objectives:</h4>
         <iframe id="psu_objectives" width="700" height="500"></iframe>
-        <!-- <h4>Final Score:</h4>
-        <iframe id="psu_finalscore" width="700" height="50"></iframe> -->
       </div>
 
-      <!--External syllabus sections displayed-->
+      <!--External syllabus sections displayed on the right-hand side-->
       <div style="overflow: auto; width: 800; float:left; margin:10px">
         <button class="button" type="button" id="external_file_select">Upload External Syllabus</button>
         <h4>External Institution Name:</h4>
@@ -77,20 +74,16 @@
         <iframe id="ext_textbook" width="700" height="50"></iframe>
         <h4>Course Objectives:</h4>
         <iframe id="ext_objectives" width="700" height="500"></iframe>
-        <!-- <h4>Final Score:</h4>
-        <iframe id="ext_finalscore" width="700" height="50"></iframe> -->
       </div>
     </div>
 
+    <!--NOT IMPLEMENTED YET: need to display the final score and sliders here at the bottom
+    Currently the div is (for some reason) appearing in the right corner -->
     <div style="margin-top:3000; width: auto;" id="another_div">
       <p>This is the another_div</p>
     </div>
 
-
-
     <br>
-
-
 
     <!--
     <h4>Institution Name:</h4>
