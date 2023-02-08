@@ -77,6 +77,24 @@
       </div>
     </div>
 
+    <!--Both sliders and compare button below, probably should be in their own div-->
+    <div class="w-full m-auto">
+      <label for="learning-outcomes-weight">Weight for Learning Outcomes</label>
+      <input type="range" min="0" max="100" value="50" id="learning-outcomes-weight" step="10" oninput="rangeValue.innerText = this.value">
+      <p id="rangeValue">50</p>
+    </div>
+
+    <div class="w-full m-auto">
+      <label for="textbook-weight">Weight for Textbook</label>
+      <input type="range" min="0" max="100" value="50" id="textbook-weight" step="10" oninput="rangeValue2.innerText = this.value">
+      <p id="rangeValue2">50</p>
+    </div>
+
+    <button class="button" type="button" id="compare">Compare Syllabi</button>
+
+    <!--Tag to display final score-->
+    <p id="final-score"></p>
+
     <!--NOT IMPLEMENTED YET: need to display the final score and sliders here at the bottom
     Currently the div is (for some reason) appearing in the right corner -->
     <div style="margin-top:3000; width: auto;" id="another_div">
@@ -130,6 +148,20 @@
       #display("DIKSRHGLIJSDNFGILUHESRLIFJDBELHG", target="another_div")
     </py-script>-->
     <py-script src="./client.py"></py-script>
+    <py-script>
+      import matplotlib.pyplot as plt
+      
+      labels = ['Texbook', 'Learning Objectives', 'other', 'other2']
+      sizes = [15, 45, 20, 20]
+
+      fig, ax = plt.subplots()
+      ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+      plt.title("Weighting Adjustments")
+      # Equal aspect ratio ensures that pie is drawn as a circle
+      ax.axis('equal')
+
+      fig
+    </py-script>
     <!-- <py-script></py-script> -->
   </body>
 </html>

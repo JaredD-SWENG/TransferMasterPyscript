@@ -12,7 +12,7 @@ from pyodide import create_proxy, to_js
 
 # psu = Syllabus()
 # external = Syllabus()
-output2 = ''
+# output2 = ''
 
 
 """Used to clear HTML elements and initialize to empty strings"""
@@ -255,22 +255,34 @@ async def setup_external_button():
     document.getElementById("external_file_select").addEventListener(
         "click", file_select_proxy, False)
 
+# setting up compare button
 
-#pn = panel
-# sliders
-compare = pn.widgets.Button(name="Compare Syllabi")
-input_learning_outcomes_weight = pn.widgets.FloatSlider(
-    start=0.0, end=1.0, name="Weighting for Learning Objectives")
-input_textbook_weight = pn.widgets.FloatSlider(
-    start=0.0, end=1.0, name="Weighting for Textbook")
+
+async def setup_compare_button():
+    compare = create_proxy(compare_pipeline)
+    document.getElementById("compare").addEventListener("click", compare)
+
+
+# #pn = panel
+# # sliders
+# compare = pn.widgets.Button(name="Compare Syllabi")
+# input_learning_outcomes_weight = pn.widgets.FloatSlider(
+#     start=0.0, end=1.0, name="Weighting for Learning Objectives")
+# input_textbook_weight = pn.widgets.FloatSlider(
+#     start=0.0, end=1.0, value=1.0-input_learning_outcomes_weight.value, name="Weighting for Textbook")
+
+# file_input = pn.widgets.FileInput()
+
 
 # pipeline function to send weightings and syllabi to comparer class and get final score back
-
-
 async def compare_pipeline(_):
     '''Weights are being preset'''
-    learning_outcomes_weight = input_learning_outcomes_weight.value
-    textbook_weight = input_textbook_weight.value
+    learning_outcomes_weight_slider = document.getElementById(
+        "learning-outcomes-weight")
+    textbook_weight_slider = document.getElementById("textbook-weight")
+
+    learning_outcomes_weight = float(learning_outcomes_weight_slider.value)/100
+    textbook_weight = float(textbook_weight_slider.value)/100
     weights = [learning_outcomes_weight,
                textbook_weight]  # send this to Comparer
 
@@ -281,37 +293,44 @@ async def compare_pipeline(_):
     global comparer
     comparer = await get_comparer(psu, external, weights)
 
+    # writing final score to screen
+    PyScript.write(
+        "final-score", str((round(comparer.final_score, 2)) * 100) + "%", append=False)
+
     '''Attributes of the comparer can also be easily accessed due to the
     Comparer class. For usage examples, see:
     https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
     Note: there are slight differences between the class definition in the
     link above, but usage is not effected.'''
-    print(comparer.final_score)  # printed to the console
+    # print(comparer.final_score)  # printed to the console
     '''once upon a time we had this pn.indicators.Number thing that's supposed to return the final score
     and apparently display it to the screen but oh well'''
 
 # function to set up the buttons and then call the pipeline to compare and display final score
 
+# if something goes wrong, put back async in front of each setup and the wrapper setup
+
 
 async def setup():
     await setup_psu_button()
     await setup_external_button()
+    await setup_compare_button()
 
-    output = pn.Column(input_learning_outcomes_weight,
-                       input_textbook_weight, compare).servable()  # the sliders
-    # call function on click to print score on console
-    compare.on_click(compare_pipeline)
-    # output2 was intended to have the pn.indicator.Number thing
-    pn.Row(output, output2)
-    # and print it to the screen but rn it's empty
-    '''
-    # pn.Column(pn.bind(output, compare.param.clicks)
-    #           ).servable(),
-    # pn.Column(compare).servable()
-    # )
-    '''
-    print("compare_pipeline")  # prints "compare_pipeline"
-    # print(comparer.get_final_score)
+    # output = pn.Column(input_learning_outcomes_weight,
+    #                    input_textbook_weight, compare, file_input).servable()  # the sliders
+    # # call function on click to print score on console
+    # compare.on_click(compare_pipeline)
+    # # output2 was intended to have the pn.indicator.Number thing
+    # pn.Row(output, output2, file_input.value)
+    # # and print it to the screen but rn it's empty
+    # '''
+    # # pn.Column(pn.bind(output, compare.param.clicks)
+    # #           ).servable(),
+    # # pn.Column(compare).servable()
+    # # )
+    # '''
+    # print(file_input.value)  # prints "compare_pipeline"
+    # # print(comparer.get_final_score)
 
 
 # data visualizations
