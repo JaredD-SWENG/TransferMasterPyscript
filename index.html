@@ -11,9 +11,12 @@
     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js"></script>
     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@holoviz/panel@0.14.1/dist/panel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!--Outdated CDN, new one is https://pyscript.net/latest/pyscript.js, but breaks with current implementation -->
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <script src="./api.js"></script>
+
+    <!--Style stuff below-->
       <style>
       .button {
         background-color: #4CAF50; /* Green */
@@ -39,7 +42,7 @@
     <br />
 
     <br />
-    <div id="filename"></div>
+    <div class="bg-red-400" id="filename"></div>
     <div id="filesize"></div>
     <div id="filetype"></div>
     <div id="filedate"></div>
@@ -48,7 +51,7 @@
     <div>
       <!--PSU syllabus sections displayed on the left-hand side-->
       <div style="overflow:auto; width: 800; float:left; margin:10px">
-        <button class="button" type="button" id="psu_file_select">Upload PSU Syllabus</button>
+        <button class="bg-blue-400" type="button" id="psu_file_select">Upload PSU Syllabus</button>
         <h4>PSU Institution Name:</h4>
         <iframe id="psu_institutionframe" width="700" height="50"></iframe>
         <h4>Course Name:</h4>
@@ -63,7 +66,7 @@
 
       <!--External syllabus sections displayed on the right-hand side-->
       <div style="overflow: auto; width: 800; float:left; margin:10px">
-        <button class="button" type="button" id="external_file_select">Upload External Syllabus</button>
+        <button class="bg-green-400" type="button" id="external_file_select">Upload External Syllabus</button>
         <h4>External Institution Name:</h4>
         <iframe id="ext_institutionframe" width="700" height="50"></iframe>
         <h4>Course Name:</h4>
@@ -103,6 +106,9 @@
 
     <br>
 
+
+
+    <!--Style stuff above-->
     <!--
     <h4>Institution Name:</h4>
     <iframe id="institutionframe" width="700" height="50"></iframe>
