@@ -42,24 +42,24 @@
   <div>
   
     <!--navbar starts-->
-    <div class=" gap-2 flex flex-col columns-2 m-2 p-2 border border-white">
+    <div class=" gap-2 flex flex-col columns-2 m-2 p-2">
     <!--Style stuff below -->
       <div class=" flex justify-center"> <img class=" w-20 h-20 " src="/TransferMaster/logo.png"  alt="transfermaster logo"></div>
    
     
-    <div> <a href="index.html"> <h1 class=" flex justify-center text-white text-6xl uppercase border border-white"> TransferMaster Prototype </h1></a></div>
+    <div> <a href="index.html"> <h1 class=" flex justify-center text-white text-6xl uppercase "> TransferMaster Prototype </h1></a></div>
    
    </div> 
      <!--navbar ends-->
 
     <!--output from upload start-->
   
-    <div class="border-2 border-rose-400 divide-y">
-      
+    <div class="border-2 border-sky-100  m-2 p-2">
+      <h1 class="text-white text-xl divide-y"> File Details</h1>
       <div id="output"></div>
       <br />
     
-      <div class="bg-red-400">
+      <div class=" text-white">
         <div  id="filename"></div>
         <div id="filesize"></div>
         <div id="filetype"></div>
@@ -89,7 +89,7 @@
           </div>
           
               
-          <!--place iframes into divs-->
+          <!--psu  items-->
           <h4 class="p-2">Institution Name:</h4>
           <iframe id="psu_institutionframe" width="550" height="50" type="text" 
                   class="border-2 rounded-xl border-sky-600 "></iframe>
@@ -129,23 +129,23 @@
               <!--container for the EXTERNAL SYLLABUS text displays-->
                   <h4 class="p-2">Institution Name:</h4>
                   <iframe id="ext_institutionframe" width="550" height="50" type="text" 
-                  class="border-2 rounded-xl border-green-200 " ></iframe>
+                  class="border-2 rounded-xl border-green-400 " ></iframe>
                 
                   <h4 class="p-2">Course Name:</h4>
                   <iframe id="ext_coursename" width="550" height="50" 
-                          class="border-2 rounded-xl border-green-200"></iframe>
+                          class="border-2 rounded-xl border-green-400"></iframe>
             
                   <h4 class="p-2">Number of Credits:</h4>
                   <iframe id="ext_credits" width="550" height="50" 
-                          class="border-2 rounded-xl border-green-200 "></iframe>
+                          class="border-2 rounded-xl border-green-400 "></iframe>
         
                   <h4 class="p-2">Textbook:</h4> 
                   <iframe id="ext_textbook" width="550" height="50"
-                          class="border-2 rounded-xl border-green-200 "></iframe>
+                          class="border-2 rounded-xl border-green-400 "></iframe>
                                
                   <h4 class="p-2">Course Objectives:</h4>
                   <iframe id="ext_objectives" width="550" height="500"
-                          class="border-2 rounded-xl border-green-200 overscroll-contain "></iframe>
+                          class="border-2 rounded-xl border-green-400 overscroll-contain "></iframe>
                       
               
         
@@ -161,7 +161,7 @@
    <div class="bg-sky-200 rounded-xl shadow-lg p-6 m-6 ">
      
     <!--container for both weight items-->
-      <div class="  m-4 p-2 gap-3 flex flex-col md:flex-row md:items-center md:mb-4">
+      <div class="  m-4 p-2 gap-3 flex flex-col columns-3 md:flex-row md:items-center md:mb-4 ">
    
         <!--learning outcome container-->
         <div class="basis-1/2  ">
@@ -178,31 +178,33 @@
        
         <div class="basis-1/2 ">
           <label for="textbook-weight" class=" block p-2 m-2">Weight for Textbook</label>
+        
           <input type="range" min="0" max="100" value="50" id="textbook-weight" 
                   step="10" oninput="rangeValue2.innerText = this.value" 
                   class="w-1/2 h-3 bg-gray-200 rounded-full appearance-none 
                           focus:outline-none focus:shadow-outline-blue">
-          <p id="rangeValue2" class="inline p-2">50</p>
+          <p id="rangeValue2" class="inline p-3">50</p>
+        
         </div>
           
-        </div>
+
     
   
  <!--Container for compare button-->
       <div class="flex justify-center ">
-        <button class="button p-3 bg-blue-400 hover:bg-blue-800
+        <button class="button p-2 bg-blue-400 hover:bg-blue-800
           rounded-lg" type="button" id="compare">Compare Syllabi</button>
       </div>
 
     </div>
- 
+         </div>
 
 
     <!--Tag to display final score-->
     <div class="  flex justify-center  p-2 m-2">
      <div class="w-40">
-      <h3 class=" text-white">Final Score: </h3>
-      <p id="final-score" class="bg-slate-100 p-2 rounded-lg shadow-sm "></p>
+      <h3 class=" text-white text-xl">Final Score: </h3>
+      <p id="final-score" class="bg-sky-100 p-8 rounded-lg shadow-sm "></p>
      </div>
       
 
@@ -212,16 +214,19 @@
 
     <!--NOT IMPLEMENTED YET: need to display the final score and sliders here at the bottom
     Currently the div is (for some reason) appearing in the right corner -->
-    <!--Style stuff below-->
-    <div style="margin-top:3000; width: auto;" id="another_div">
+    <!--Style stuff below<div class="text-white" id="another_div">
       <p>This is the another_div</p>
-      </div>
+      </div>-->
+    
       <!--sample-->
       
 
 
 
-    <!--Style stuff above-->
+    <!--container for the graph-->
+
+    
+    
     <!--
     <h4>Institution Name:</h4>
     <iframe id="institutionframe" width="700" height="50"></iframe>
@@ -266,6 +271,11 @@
       plt.show()
       #display("DIKSRHGLIJSDNFGILUHESRLIFJDBELHG", target="another_div")
     </py-script>-->
+
+    <!--graph container begins here-->
+    <div class="  p-2 m-2 border border-white">
+      <div class="block p-3 m-3 flex justify-center"><h1 class="text-white text-xl">Summary Graphs</h1></div>
+      <div>
     <py-script src="./client.py"></py-script>
     <py-script>
       import matplotlib.pyplot as plt
@@ -281,6 +291,8 @@
 
       fig
     </py-script>
+      </div>
+    </div><!--graph container ends here-->
     <!-- <py-script></py-script> -->
     </div>
   </body>
