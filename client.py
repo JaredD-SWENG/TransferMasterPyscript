@@ -295,7 +295,7 @@ async def compare_pipeline(_):
 
     # writing final score to screen
     PyScript.write(
-        "final-score", str((round(comparer.final_score, 2)) * 100) + "%", append=False)
+        "final-score", str(round(comparer.final_score *100, 2) ) + "%", append=False)
 
     '''Attributes of the comparer can also be easily accessed due to the
     Comparer class. For usage examples, see:

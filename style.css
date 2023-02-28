@@ -1,21 +1,18 @@
 /*not being used*/
 /*Control the split*/
-.split {
-    height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  margin-top: 500;
-  overflow: visible;
-  padding-top: 20px;
-  }
+.range-red::-webkit-slider-thumb {
+  background-color: red;
+}
 
-  /* Control the left side */
-  .left {
-    left: 0;
-  }
+.range-red::-moz-range-thumb {
+  background-color: red;
+}
 
-  /* Control the right side */
-  .right{
-    right: 0;
-  }
+.range-green::-webkit-slider-thumb {
+  background-color: green;
+}
+
+.range-green::-moz-range-thumb {
+  background-color: green;
+}
+
