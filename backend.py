@@ -125,7 +125,7 @@ class Comparer:
         output = (await query(source, to_js(other))).to_py()
 
         for o in output:
-            if o > 0.35:  # thershold is 0.35 (lose items less than threshold)
+            if o > 0.25:  # thershold is 0.35 (lose items less than threshold)
                 individual_comparison_percentages.append(o)
 
         return individual_comparison_percentages
@@ -133,7 +133,8 @@ class Comparer:
     async def get_grouped_comparisons(self) -> None:
         """Get all the individual comparison percentages and group them"""
 
-        for i in range(2):  # eventually change 2 to len(self.source_syllabus.learning_outcomes)
+        # eventually change 2 to len(self.source_syllabus.learning_outcomes)
+        for i in range(len(self.source_syllabus.learning_outcomes)):
             individual_comparison_percentages = await self.get_individual_comparisons(i)
             # if an entire objective had no match, 0 it
             if len(individual_comparison_percentages) == 0:
@@ -150,7 +151,7 @@ class Comparer:
         averages = []
 
         for i in self.grouped_comparison_percentages:  # get averages
-            averages.append(mean(i))
+            averages.append(max(i))
 
         self.learning_outcomes_comparison_percentage = mean(
             averages)  # get average of averages
