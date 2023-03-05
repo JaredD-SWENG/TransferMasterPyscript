@@ -161,10 +161,10 @@
    <div class="bg-sky-200 rounded-xl shadow-lg p-6 m-6 ">
      
     <!--container for both weight items-->
-      <div class="  m-4 p-2 gap-3 flex flex-col columns-3 md:flex-row md:items-center md:mb-4 ">
+      <div class="  m-4 p-2 gap-2 flex flex-col columns-3 md:flex-row md:items-center md:mb-4 ">
    
         <!--learning outcome container-->
-        <div class="basis-1/2  ">
+        <div class="basis-1/2 ">
           <label for="learning-outcomes-weight" class=" block p-2 m-2">Weight for Learning Outcomes</label>
           <input type="range" min="0" max="100" value="50" id="learning-outcomes-weight" 
                   step="10" oninput="rangeValue.innerText = this.value" 
@@ -275,15 +275,22 @@
 
     <!--graph container begins here-->
     <div class="  p-2 m-2 border border-white">
-      <div class="block p-3 m-3 flex justify-center"><h1 class="text-white text-xl">Summary Graphs</h1></div>
+       
+      <div class=" p-3 m-3 flex justify-center"><h1 class="text-white text-xl">Summary Graphs</h1></div>
 
-      <!--I just put the summarry here, but please adjust to wherever necessary-->
-      <p id="summary" class="bg-sky-100 p-6 rounded-lg shadow-sm text-2xl text-green-500"></p>
-      
-      <div>
-    <py-script src="./client.py"></py-script>
-    <py-script src="./graph.py"></py-script>
-      </div>
+      <!--Container for summary-->
+      <div class="gap-2 flex flex-col columns-2 md:flex-row md:items-center md:justify-between mb-4">
+        <!--I just put the summarry here, but please adjust to wherever necessary-->
+        <div class="basis-1/2">
+          <p id="summary" class="bg-sky-100 p-6 rounded-lg shadow-sm text-2xl text-green-500 "></p>
+        </div>
+    
+        <div class="basis-1/2">
+        <py-script src="./client.py"></py-script>
+        <py-script src="./graph.py"></py-script>
+        </div>
+</div>
+
     </div><!--graph container ends here-->
     <!-- <py-script></py-script> -->
     </div>
