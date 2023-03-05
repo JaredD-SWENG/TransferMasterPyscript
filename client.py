@@ -7,7 +7,7 @@ import panel as pn
 import numpy as np
 import matplotlib.pyplot as plt
 from backend import get_comparer, get_syllabus, Syllabus
-from js import alert, document, Object, window, parse_doc
+from js import alert, document, Object, window, parse_doc, get_summary
 from pyodide import create_proxy, to_js
 
 # psu = Syllabus()
@@ -293,9 +293,14 @@ async def compare_pipeline(_):
     global comparer
     comparer = await get_comparer(psu, external, weights)
 
+    summary = (await get_summary()).to_py()
+
     # writing final score to screen
     PyScript.write(
-        "final-score", str(round(comparer.final_score *100, 2) ) + "%", append=False)
+        "final-score", str(round(comparer.final_score * 100, 2)) + "%", append=False)
+    # chatgpt summary to screen
+    PyScript.write(
+        "summary", summary['choices'][0]['message']['content'], append=False)
 
     '''Attributes of the comparer can also be easily accessed due to the
     Comparer class. For usage examples, see:
@@ -337,6 +342,5 @@ async def setup():
 
 
 # First create the x and y coordinates of the points.
-
 
 setup()

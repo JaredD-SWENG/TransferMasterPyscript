@@ -34,6 +34,26 @@ async function query(source, other)
     return result;
 }
 
+async function get_summary()
+{
+    const api_key = "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";
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + api_key
+    },
+    body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages:  [{role: "user", content: "Hello world"}],
+    })
+    });
+    const result = await response.json();
+    return result
+}
+    
+
 
 //This function is not currently in use, but may be in
 

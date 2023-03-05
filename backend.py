@@ -137,9 +137,12 @@ class Comparer:
         for i in range(len(self.source_syllabus.learning_outcomes)):
             individual_comparison_percentages = await self.get_individual_comparisons(i)
             # if an entire objective had no match, 0 it
-            if len(individual_comparison_percentages) == 0:
-                self.grouped_comparison_percentages.append([0])
-            else:
+            # if len(individual_comparison_percentages) == 0:
+            #     self.grouped_comparison_percentages.append([0])
+            # else:
+            #     self.grouped_comparison_percentages.append(
+            #         individual_comparison_percentages)
+            if len(individual_comparison_percentages) != 0:
                 self.grouped_comparison_percentages.append(
                     individual_comparison_percentages)
 
@@ -172,7 +175,8 @@ class Comparer:
         """Get the final score based on items and their respective weights"""
 
         for i in range(len(items)):
-            self.final_score += (items[i] * weights[i])  # weighted average
+            # weighted average
+            self.final_score += (items[i] * weights[i] * 2)
 
     async def create(source_syllabus, other_syllabus, item_weights):
         """Create function replaces init because init cannot be async"""

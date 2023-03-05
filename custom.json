@@ -1,5 +1,5 @@
 {
     "fetch": [{
-        "files": ["/backend.py"]
+        "files": ["/backend.py", "/client.py", "/graph.py"]
       }]
 }
