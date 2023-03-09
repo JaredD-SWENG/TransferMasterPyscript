@@ -10,7 +10,7 @@ from typing import Optional, Any
 import numpy as np
 from statistics import mean
 
-"""For usage examples on the Syllabus class, see: 
+"""For usage examples on the Syllabus class, see:
 https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
 Note: there are slight differences between the class definition in the
 link above, but usage is not effected."""
@@ -93,7 +93,7 @@ async def get_syllabus(parsed_doc) -> Syllabus:
     return Syllabus(parsed_doc)
 
 
-"""For usage examples on the Comparer class, see: 
+"""For usage examples on the Comparer class, see:
 https://colab.research.google.com/drive/1WTliNpWSGZE-SnPGKCJ_uo5Z9xH1SXeP.
 Note: there are slight differences between the class definition in the
 link above, but usage is not effected."""
@@ -108,6 +108,7 @@ class Comparer:
     source_syllabus = None  # source syllabus has it objectives as the source sentences
     other_syllabus = None
     # (final) percentage match for the learning outcomes
+    averages = []
     learning_outcomes_comparison_percentage = 0.0
     textbook_comparison_percentage = 0.0  # percentage match for textbook
     final_score = 0.0
@@ -125,7 +126,7 @@ class Comparer:
         output = (await query(source, to_js(other))).to_py()
 
         for o in output:
-            if o > 0.35:  # thershold is 0.35 (lose items less than threshold)
+            if o > 0.25:  # thershold is 0.35 (lose items less than threshold)
                 individual_comparison_percentages.append(o)
 
         return individual_comparison_percentages
@@ -133,7 +134,8 @@ class Comparer:
     async def get_grouped_comparisons(self) -> None:
         """Get all the individual comparison percentages and group them"""
 
-        for i in range(2):  # eventually change 2 to len(self.source_syllabus.learning_outcomes)
+        # eventually change 2 to len(self.source_syllabus.learning_outcomes)
+        for i in range(len(self.source_syllabus.learning_outcomes)):
             individual_comparison_percentages = await self.get_individual_comparisons(i)
             # if an entire objective had no match, 0 it
             if len(individual_comparison_percentages) == 0:
@@ -141,19 +143,22 @@ class Comparer:
             else:
                 self.grouped_comparison_percentages.append(
                     individual_comparison_percentages)
+            # if len(individual_comparison_percentages) != 0:
+            #     self.grouped_comparison_percentages.append(
+            #         individual_comparison_percentages)
 
     async def get_learning_outcomes_percentage(self) -> None:
         """Get the learning outcomes match percentage"""
 
-        await self.get_grouped_comparisons()
+        await self.get_grouped_comparisons()  # this?
 
-        averages = []
+        self.averages.clear()  # clearing avg to prevent persistant values (Comparer is singleton)
 
         for i in self.grouped_comparison_percentages:  # get averages
-            averages.append(mean(i))
+            self.averages.append(max(i))
 
         self.learning_outcomes_comparison_percentage = mean(
-            averages)  # get average of averages
+            self.averages)  # get average of averages
         # send to items for final score
         self.items_to_compare.append(
             self.learning_outcomes_comparison_percentage)
@@ -171,7 +176,8 @@ class Comparer:
         """Get the final score based on items and their respective weights"""
 
         for i in range(len(items)):
-            self.final_score += (items[i] * weights[i])  # weighted average
+            # weighted average
+            self.final_score += (items[i] * weights[i] * 2)
 
     async def create(source_syllabus, other_syllabus, item_weights):
         """Create function replaces init because init cannot be async"""

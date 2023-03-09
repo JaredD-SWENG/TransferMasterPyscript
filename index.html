@@ -5,12 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>File System Access API Examples</title>
+    <title>TransferMaster Prototype</title>
+    <link rel="icon" type="image/x-icon" href="/logo.png">
     <!--Might be able to remove script tag below-->
-    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=ULVnp8GemZfoBuJamgq7VPZs76_M87cudc59SQhSK1oh-6XlirSgxxpMAL3XcUGFdE1xXr-ZGuhzxvPjlg8VPTp7IJvWZY1KD3NFC9zWH9Q" charset="UTF-8"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@holoviz/panel@0.14.1/dist/panel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!--Outdated CDN, new one is https://pyscript.net/latest/pyscript.js, but breaks with current implementation -->
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <script src="./api.js"></script>
+    <link rel="stylesheet" href="./style.css">
+
+    <!--Style stuff below
       <style>
       .button {
         background-color: #4CAF50; /* Green */
@@ -22,28 +30,224 @@
         display: inline-block;
         font-size: 16px;
       }
+
+      div.col {display: block}
     </style>
+  -->
+
   </head>
-  <body>
-    <p>
-      This example shows how to call the File System Access APIs. These APIs permit local file system access.
-    </p>
-    <div id="output"></div>
-    <br />
-    <button class="button" type="button" id="file_select">Read Local File</button>
-    <br />
-    <br />
-    <div id="filename"></div>
-    <div id="filesize"></div>
-    <div id="filetype"></div>
-    <div id="filedate"></div>
-    <h4>File Contents:</h4>
-    <iframe id="content" width="700" height="400"></iframe>
+
+  <!--style="background-image: url('/TransferMaster/logo.png')-->
+  <body class=" bg-slate-900">
+  <div>
+  
+    <!--navbar starts-->
+    <div class=" gap-2 flex flex-col columns-2 m-2 p-2">
+    <!--Style stuff below -->
+      <div class=" flex justify-center"> <img class=" w-20 h-20 " src="logo.png"  alt="transfermaster logo"></div>
+   
+    
+    <div> <a href="index.html"> <h1 class=" flex justify-center text-white text-6xl uppercase "> TransferMaster Prototype </h1></a></div>
+   
+   </div> 
+     <!--navbar ends-->
+
+    <!--output from upload start-->
+  
+    <div class="border-2 border-sky-100  m-2 p-2">
+      <h1 class="text-white text-xl divide-y"> File Details</h1>
+      <div id="output"></div>
+      <br />
+    
+      <div class=" text-white">
+        <div  id="filename"></div>
+        <div id="filesize"></div>
+        <div id="filetype"></div>
+        <div id="filedate"></div>
+      </div>
+    
+    </div>
+    <!--output from file upload ends-->
+
+    
+    
+    
+    <!--overall container for uploads-->
+    
+    <div class=" p-4 ">
+      
+      <!--container for both upload elements, used flex with 2 columns-->
+      <div class=" gap-2 flex flex-col columns-2 md:flex-row md:items-center md:justify-between mb-4 ">
+       
+        <!--PSU syllabus container begins-->
+        <div class=" bg-sky-100 shadow-lg rounded-lg m-2 p-8 ">
+         
+          <div class="flex justify-center ">
+            <button class=" p-4 m-2 bg-sky-400 rounded-lg
+                          hover:bg-sky-800 text-white " 
+                          type="button" id="psu_file_select">Upload PSU Syllabus</button>
+          </div>
+          
+              
+          <!--psu  items-->
+          <h4 class="p-2">Institution Name:</h4>
+          <iframe id="psu_institutionframe" width="550" height="50" type="text" 
+                  class="border-2 rounded-xl border-sky-600 "></iframe>
+                          
+          <h4 class="p-2">Course Name:</h4>
+          <iframe id="psu_coursename" width="550" height="50" 
+                  class="border-2 rounded-xl border-sky-600 "></iframe>
+    
+          <h4 class="p-2">Number of Credits:</h4>
+          <iframe id="psu_credits" width="550" height="50" 
+                  class="border-2 rounded-xl border-sky-600 "></iframe>
+
+          <h4 class="p-2">Textbook:</h4> 
+          <iframe id="psu_textbook" width="550" height="50"
+                  class="border-2 rounded-xl border-sky-600 "></iframe>
+                       
+          <h4 class="p-2">Course Objectives:</h4>
+          <iframe id="psu_objectives" width="550" height="500"
+                  class="border-2 rounded-xl border-sky-600 overscroll-contain "></iframe>
+              
+        </div> <!--container for PSU output texts ends-->               
+         
+       
+       
+        <!--External syllabus container on the right-hand side-->         
+        <div class="bg-green-100 shadow-lg rounded-lg  m-2 p-8">
+         
+          <!--External syllabus section-->
+          
+          <div class="flex justify-center ">
+            <button class="  p-4 m-2 bg-green-400 rounded-lg
+                          hover:bg-green-800 text-white " 
+                          type="button" id="external_file_select">Upload External Syllabus</button>
+          </div>
+
+
+              <!--container for the EXTERNAL SYLLABUS text displays-->
+                  <h4 class="p-2">Institution Name:</h4>
+                  <iframe id="ext_institutionframe" width="550" height="50" type="text" 
+                  class="border-2 rounded-xl border-green-400 " ></iframe>
+                
+                  <h4 class="p-2">Course Name:</h4>
+                  <iframe id="ext_coursename" width="550" height="50" 
+                          class="border-2 rounded-xl border-green-400"></iframe>
+            
+                  <h4 class="p-2">Number of Credits:</h4>
+                  <iframe id="ext_credits" width="550" height="50" 
+                          class="border-2 rounded-xl border-green-400 "></iframe>
+        
+                  <h4 class="p-2">Textbook:</h4> 
+                  <iframe id="ext_textbook" width="550" height="50"
+                          class="border-2 rounded-xl border-green-400 "></iframe>
+                               
+                  <h4 class="p-2">Course Objectives:</h4>
+                  <iframe id="ext_objectives" width="550" height="500"
+                          class="border-2 rounded-xl border-green-400 overscroll-contain "></iframe>
+                      
+              
+        
+                </div><!--External syllabus section ends-->
+
+      
+  </div>
+</div>
+
+ 
+   
+    <!--overall container for range values and compare button-->
+   <div class="bg-sky-200 rounded-xl shadow-lg p-6 m-6 ">
+     
+    <!--container for both weight items-->
+      <div class="  m-4 p-2 gap-2 flex flex-col columns-3 md:flex-row md:items-center md:mb-4 ">
+   
+        <!--learning outcome container-->
+        <div class="basis-1/2 ">
+          <label for="learning-outcomes-weight" class=" block p-2 m-2">Weight for Learning Outcomes</label>
+          <input type="range" min="0" max="100" value="50" id="learning-outcomes-weight" 
+                  step="10" oninput="rangeValue.innerText = this.value" 
+                  class="w-1/2 h-3 bg-gray-200 rounded-full appearance-none 
+                          focus:outline-none focus:shadow-outline-blue">
+          <p id="rangeValue" class="inline p-2">50</p>
+        </div>
+         
+        
+    <!-- textbook weight -->
+       
+        <div class="basis-1/2 ">
+          <label for="textbook-weight" class=" block p-2 m-2">Weight for Textbook</label>
+        
+          <input type="range" min="0" max="100" value="50" id="textbook-weight" 
+                  step="10" oninput="rangeValue2.innerText = this.value" 
+                  class="w-1/2 h-3 bg-gray-200 rounded-full appearance-none 
+                          focus:outline-none focus:shadow-outline-blue">
+          <p id="rangeValue2" class="inline p-3">50</p>
+        
+        </div>
+          
+
+    
+  
+ <!--Container for compare button-->
+      <div class="flex justify-center ">
+        <button class="button p-2 bg-blue-400 hover:bg-blue-700
+          rounded-lg" type="button" id="compare">Compare Syllabi</button>
+      </div>
+
+    </div>
+         </div>
+
+
+    <!--Tag to display final score-->
+    <div class="  flex justify-center  p-2 m-2">
+     <div class="w-40">
+      <h3 class="flex justify-center text-white text-xl">Final Score: </h3>
+      <p id="final-score" class="flex justify-center bg-sky-100 p-6 rounded-lg shadow-sm text-2xl text-red-500"></p>
+     </div>
+      
+
+    </div>
+    
+    
+
+    <!--NOT IMPLEMENTED YET: need to display the final score and sliders here at the bottom
+    Currently the div is (for some reason) appearing in the right corner -->
+    <!--Style stuff below<div class="text-white" id="another_div">
+      <p>This is the another_div</p>
+      </div>-->
+    
+      <!--sample-->
+      
+
+
+
+    <!--container for the graph-->
+
+    
+    
+    <!--
+    <h4>Institution Name:</h4>
+    <iframe id="institutionframe" width="700" height="50"></iframe>
+    <h4>Course Name:</h4>
+    <iframe id="coursename" width="700" height="50"></iframe>
+    <h4>Number of Credits:</h4>
+    <iframe id="credits" width="700" height="50"></iframe>
+    <h4>Textbook:</h4>
+    <iframe id="textbook" width="700" height="50"></iframe>
+    <h4>Course Objectives:</h4>
+    <iframe id="objectives" width="700" height="500"></iframe>
+    <h4>Final Score:</h4>
+    <iframe id="finalscore" width="700" height="50"></iframe>-->
     <!--using custom json to get other .py files-->
     <py-config type="json" src="./custom.json"></py-config>
     <!--Include any modules that need to be imported here, including any local files needed for operation-->
     <py-env>
       - numpy
+      - matplotlib
+      - panel==0.13.1
+      - bokeh
       - asyncio
       - pyodide.http
       - typing
@@ -51,7 +255,45 @@
         - ./backend.py
         - ./custom.json
         - ./api.js
+        - ./style.css
+        - ./client.py
+        - ./graph.py
     </py-env>
     <py-script src="./client.py"></py-script>
+    <!--<py-script>
+      print("hiiiiiiiiiiiiiiiiiii")
+      import matplotlib.pyplot as plt
+      labels = ['Texbook', 'Learning Objectives', 'other', 'other2']
+      sizes = [15, 40, 25, 20]
+      fig, ax = plt.subplots()
+      ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+      plt.title("Weight Adjustments")
+      # Equal aspect ratio ensures that pie is drawn as a circle
+      ax.axis('equal')
+      plt.show()
+      #display("DIKSRHGLIJSDNFGILUHESRLIFJDBELHG", target="another_div")
+    </py-script>-->
+
+    <!--graph container begins here-->
+    <div class="  p-2 m-2 border border-white">
+       
+      <div class=" p-3 m-3 flex justify-center"><h1 class="text-white text-xl">Summary</h1></div>
+
+      <!--Container for summary-->
+      <div class="gap-2 flex flex-col columns-2 md:flex-row md:items-center md:justify-between mb-4">
+
+        <div id="graph" class="basis-1/2"></div>
+        <!-- <py-script src="./graph.py"></py-script> -->
+        
+    <!--I just put the summarry here, but please adjust to wherever necessary-->
+        <div class="basis-1/2">
+          <p id="summary" class="border-sky-100 p-2 text-xl text-white "></p>
+        </div>
+
+</div>
+
+    </div><!--graph container ends here-->
+    <!-- <py-script></py-script> -->
+    </div>
   </body>
 </html>

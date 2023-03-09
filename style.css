@@ -1,0 +1,18 @@
+/*not being used*/
+/*Control the split*/
+.range-red::-webkit-slider-thumb {
+  background-color: red;
+}
+
+.range-red::-moz-range-thumb {
+  background-color: red;
+}
+
+.range-green::-webkit-slider-thumb {
+  background-color: green;
+}
+
+.range-green::-moz-range-thumb {
+  background-color: green;
+}
+
