@@ -7,13 +7,13 @@ import panel as pn
 import numpy as np
 import matplotlib.pyplot as plt
 from backend import get_comparer, get_syllabus, Syllabus
+from graph import graph
 from js import alert, document, Object, window, parse_doc, get_summary
 from pyodide import create_proxy, to_js
 
 # psu = Syllabus()
 # external = Syllabus()
 # output2 = ''
-
 
 """Used to clear HTML elements and initialize to empty strings"""
 
@@ -61,7 +61,7 @@ async def psu_file_select(event):
     try:
         options = {
             "multiple": False,
-            "startIn": "documents"
+            "startIn": "downloads"
         }
 
         '''fileHandle needs to wait for this File System Access API call
@@ -158,7 +158,7 @@ async def external_file_select(event):
     try:
         options = {
             "multiple": False,
-            "startIn": "documents"
+            "startIn": "downloads"
         }
 
         '''fileHandle needs to wait for this File System Access API call
@@ -293,7 +293,17 @@ async def compare_pipeline(_):
     global comparer
     comparer = await get_comparer(psu, external, weights)
 
-    summary = (await get_summary()).to_py()
+    psu_chunk = ''
+    for i in psu.learning_outcomes:
+        psu_chunk += i
+    ext_chunk = ''
+    for i in external.learning_outcomes:
+        ext_chunk += i
+
+    summary = (await get_summary(psu_chunk, ext_chunk, (round(comparer.final_score * 100, 2)))).to_py()
+
+    fig = graph(psu.learning_outcomes, comparer.averages)
+    PyScript.write('graph', fig)
 
     # writing final score to screen
     PyScript.write(
@@ -342,5 +352,10 @@ async def setup():
 
 
 # First create the x and y coordinates of the points.
+async def main():
+    await setup()
+    # Your other code here
 
-setup()
+if __name__ == "__main__":
+    asyncio.create_task(main())
+    asyncio.get_event_loop().run_forever()

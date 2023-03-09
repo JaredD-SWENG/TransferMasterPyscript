@@ -34,7 +34,7 @@ async function query(source, other)
     return result;
 }
 
-async function get_summary()
+async function get_summary(psu_obj, ext_obj, final_score)
 {
     const api_key = "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";
 
@@ -46,7 +46,10 @@ async function get_summary()
     },
     body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages:  [{role: "user", content: "Hello world"}],
+        messages: [
+            {"role": "system", "content": "You are an ai powered tool to assist transfer credit specialists at a university; you provide a short detailed summary on how similar external courses are to psu courses based on the given percent match meeting psu objectives that was attained"},
+            {"role": "user", "content": `Compare the PSU objectives ${psu_obj} and the external objectives ${ext_obj} and explain why its an ${final_score}% match`}
+        ],
     })
     });
     const result = await response.json();

@@ -108,6 +108,7 @@ class Comparer:
     source_syllabus = None  # source syllabus has it objectives as the source sentences
     other_syllabus = None
     # (final) percentage match for the learning outcomes
+    averages = []
     learning_outcomes_comparison_percentage = 0.0
     textbook_comparison_percentage = 0.0  # percentage match for textbook
     final_score = 0.0
@@ -137,27 +138,27 @@ class Comparer:
         for i in range(len(self.source_syllabus.learning_outcomes)):
             individual_comparison_percentages = await self.get_individual_comparisons(i)
             # if an entire objective had no match, 0 it
-            # if len(individual_comparison_percentages) == 0:
-            #     self.grouped_comparison_percentages.append([0])
-            # else:
-            #     self.grouped_comparison_percentages.append(
-            #         individual_comparison_percentages)
-            if len(individual_comparison_percentages) != 0:
+            if len(individual_comparison_percentages) == 0:
+                self.grouped_comparison_percentages.append([0])
+            else:
                 self.grouped_comparison_percentages.append(
                     individual_comparison_percentages)
+            # if len(individual_comparison_percentages) != 0:
+            #     self.grouped_comparison_percentages.append(
+            #         individual_comparison_percentages)
 
     async def get_learning_outcomes_percentage(self) -> None:
         """Get the learning outcomes match percentage"""
 
         await self.get_grouped_comparisons()  # this?
 
-        averages = []
+        self.averages.clear()  # clearing avg to prevent persistant values (Comparer is singleton)
 
         for i in self.grouped_comparison_percentages:  # get averages
-            averages.append(max(i))
+            self.averages.append(max(i))
 
         self.learning_outcomes_comparison_percentage = mean(
-            averages)  # get average of averages
+            self.averages)  # get average of averages
         # send to items for final score
         self.items_to_compare.append(
             self.learning_outcomes_comparison_percentage)

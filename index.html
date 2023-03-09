@@ -192,7 +192,7 @@
   
  <!--Container for compare button-->
       <div class="flex justify-center ">
-        <button class="button p-2 bg-blue-400 hover:bg-blue-800
+        <button class="button p-2 bg-blue-400 hover:bg-blue-700
           rounded-lg" type="button" id="compare">Compare Syllabi</button>
       </div>
 
@@ -203,8 +203,8 @@
     <!--Tag to display final score-->
     <div class="  flex justify-center  p-2 m-2">
      <div class="w-40">
-      <h3 class=" text-white text-xl">Final Score: </h3>
-      <p id="final-score" class="bg-sky-100 p-6 rounded-lg shadow-sm text-2xl text-green-500"></p>
+      <h3 class="flex justify-center text-white text-xl">Final Score: </h3>
+      <p id="final-score" class="flex justify-center bg-sky-100 p-6 rounded-lg shadow-sm text-2xl text-red-500"></p>
      </div>
       
 
@@ -259,6 +259,7 @@
         - ./client.py
         - ./graph.py
     </py-env>
+    <py-script src="./client.py"></py-script>
     <!--<py-script>
       print("hiiiiiiiiiiiiiiiiiii")
       import matplotlib.pyplot as plt
@@ -276,19 +277,17 @@
     <!--graph container begins here-->
     <div class="  p-2 m-2 border border-white">
        
-      <div class=" p-3 m-3 flex justify-center"><h1 class="text-white text-xl">Summary Graphs</h1></div>
+      <div class=" p-3 m-3 flex justify-center"><h1 class="text-white text-xl">Summary</h1></div>
 
       <!--Container for summary-->
       <div class="gap-2 flex flex-col columns-2 md:flex-row md:items-center md:justify-between mb-4">
 
-        <div class="basis-1/2">
-        <py-script src="./client.py"></py-script>
-        <py-script src="./graph.py"></py-script>
-        </div>
+        <div id="graph" class="basis-1/2"></div>
+        <!-- <py-script src="./graph.py"></py-script> -->
         
     <!--I just put the summarry here, but please adjust to wherever necessary-->
         <div class="basis-1/2">
-          <p id="summary" class="bg-sky-100 p-6 rounded-lg shadow-sm text-2xl text-green-500 "></p>
+          <p id="summary" class="border-sky-100 p-2 text-xl text-white "></p>
         </div>
 
 </div>
