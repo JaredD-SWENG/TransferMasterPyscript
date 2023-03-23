@@ -300,7 +300,7 @@ async def compare_pipeline(_):
     for i in external.learning_outcomes:
         ext_chunk += i
 
-    # summary = (await get_summary(psu_chunk, ext_chunk, (round(comparer.final_score * 100, 2)))).to_py()
+    summary = (await get_summary(psu_chunk, ext_chunk, (round(comparer.final_score * 100, 2)))).to_py()
 
     fig = graph(psu.learning_outcomes, comparer.averages)
     PyScript.write('graph', fig)
@@ -313,8 +313,8 @@ async def compare_pipeline(_):
     PyScript.write(
         "final-score", str(round(comparer.final_score * 100, 2)) + "%", append=False)
     # chatgpt summary to screen
-    # PyScript.write(
-    #     "summary", summary['choices'][0]['message']['content'], append=False)
+    PyScript.write(
+        "summary", summary['choices'][0]['message']['content'], append=False)
 
     '''Attributes of the comparer can also be easily accessed due to the
     Comparer class. For usage examples, see:
