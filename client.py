@@ -305,6 +305,10 @@ async def compare_pipeline(_):
     fig = graph(psu.learning_outcomes, comparer.averages)
     PyScript.write('graph', fig)
 
+    if(comparer.final_score > 0.5):
+        document.getElementById("final-score").style.color = "green"
+    else:
+        document.getElementById("final-score").style.color = "red"
     # writing final score to screen
     PyScript.write(
         "final-score", str(round(comparer.final_score * 100, 2)) + "%", append=False)

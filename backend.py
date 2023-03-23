@@ -179,6 +179,10 @@ class Comparer:
             # weighted average
             self.final_score += (items[i] * weights[i] * 2)
 
+        #if the final score is more than 100% then set it to 100% (max)
+        if(self.final_score > 1.0):
+            self.final_score = 1.0
+
     async def create(source_syllabus, other_syllabus, item_weights):
         """Create function replaces init because init cannot be async"""
 
