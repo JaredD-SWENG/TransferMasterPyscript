@@ -1,7 +1,7 @@
 // Open Syllabus Parser API call
 async function parse_doc(data)
   {
-    api_token = '9c263dc72cfcf24432a1ae9acdab709c55ba14f4'
+    api_token = 'add_token_here'
     const response = await fetch('https://parser-api.opensyllabus.org/v1/', {
         method: 'POST',
         mode: 'cors',
@@ -18,7 +18,7 @@ async function parse_doc(data)
 //Sentence Similarity Inference Hugging Face API call
 async function query(source, other)
 {
-    api_token = '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'
+    api_token = 'add_token_here'
     const response = await fetch('https://api-inference.huggingface.co/models/sentence-transformers/paraphrase-multilingual-mpnet-base-v2', {
         method: 'POST',
         mode: 'cors',
@@ -36,7 +36,7 @@ async function query(source, other)
 
 async function get_summary(psu_obj, ext_obj, final_score)
 {
-    const api_key = "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";
+    const api_key = "add_token_here";
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
