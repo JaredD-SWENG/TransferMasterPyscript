@@ -2,7 +2,8 @@
 
 Implementated via Pyscript
 
-![image](https://user-images.githubusercontent.com/76745335/223907223-afe32fdf-f634-4d01-bf2a-709acf826548.png)
+[![Watch the video](https://user-images.githubusercontent.com/76745335/223907223-afe32fdf-f634-4d01-bf2a-709acf826548.png)](https://www.youtube.com/watch?v=nBVmE6A5EB4)
+
 
 To test out the demo:
 * Open the github-pages link under Environments 
@@ -10,3 +11,5 @@ To test out the demo:
 * Upload the respective syllabi
 * Adjust the weights
 * Compare
+
+[Watch the video demo](https://www.youtube.com/watch?v=nBVmE6A5EB4)
